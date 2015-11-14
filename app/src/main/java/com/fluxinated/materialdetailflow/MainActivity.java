@@ -3,18 +3,21 @@ package com.fluxinated.materialdetailflow;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.fluxinated.materialdetailflow.common.activities.BaseActivity;
+import com.fluxinated.materialdetailflow.common.fragments.Examples.SampleContent;
+import com.fluxinated.materialdetailflow.common.fragments.Examples.SampleTabLayout;
+import com.fluxinated.materialdetailflow.common.fragments.Examples.SampleTabLayout.TabContentChange;
 import com.fluxinated.materialdetailflow.navigation.NavigationDrawerCallbacks;
 import com.fluxinated.materialdetailflow.navigation.NavigationDrawerFragment;
 
 
-public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerCallbacks
+public class MainActivity extends BaseActivity
+        implements NavigationDrawerCallbacks,TabContentChange
 {
 
     /**
@@ -35,26 +38,13 @@ public class MainActivity extends ActionBarActivity
 
 
         if (findViewById(R.id.fragment_content_container) != null)
-        {
             mTwoPane = true;
-            mNavigationDrawerFragment = (NavigationDrawerFragment)
-                    getFragmentManager().findFragmentById(R.id.fragment_drawer);
-
-            // Set up the drawer.
-            mNavigationDrawerFragment.setup(R.id.fragment_drawer, (DrawerLayout) findViewById(R.id.drawer), mToolbar);
-            // populate the navigation drawer
-            mNavigationDrawerFragment.setUserData("John Doe", "johndoe@doe.com", BitmapFactory.decodeResource(getResources(), R.drawable.avatar));
-
-        } else
-        {
-            mNavigationDrawerFragment = (NavigationDrawerFragment)
-                    getFragmentManager().findFragmentById(R.id.fragment_drawer);
-
-            // Set up the drawer.
-            mNavigationDrawerFragment.setup(R.id.fragment_drawer, (DrawerLayout) findViewById(R.id.drawer), mToolbar);
-            // populate the navigation drawer
-            mNavigationDrawerFragment.setUserData("John Doe", "johndoe@doe.com", BitmapFactory.decodeResource(getResources(), R.drawable.avatar));
-        }
+        mNavigationDrawerFragment = (NavigationDrawerFragment)
+                getFragmentManager().findFragmentById(R.id.fragment_drawer);
+        // Set up the drawer.
+        mNavigationDrawerFragment.setup(R.id.fragment_drawer, (DrawerLayout) findViewById(R.id.drawer), mToolbar);
+        // populate the navigation drawer
+        mNavigationDrawerFragment.setUserData("John Doe", "johndoe@doe.com", BitmapFactory.decodeResource(getResources(), R.drawable.avatar));
 
     }
 
@@ -67,27 +57,28 @@ public class MainActivity extends ActionBarActivity
     public void onNavigationDrawerItemSelected(int position)
     {
         // update the main content by replacing fragments
-        Toast.makeText(this, "Menu item selected -> " + position, Toast.LENGTH_SHORT).show();
-
-        switch (position)
+        if(mNavigationDrawerFragment !=null && mNavigationDrawerFragment.getCurrentSelectedPosition() != position  )
         {
-            case 0:
+            Toast.makeText(this, "Menu item selected -> " + position, Toast.LENGTH_SHORT).show();
+            switch (position)
+            {
+                case 0:
+                    super.FragmentTransaction(R.id.fragment_content_container, SampleContent.newInstance(null),FragmentTransition.NONE,false,null);
+                    break;
 
-                break;
+                case 1:
+                    break;
 
-            case 1:
-                break;
+                case 2:
+                    super.FragmentTransaction(R.id.fragment_content_container, SampleTabLayout.newInstance(),FragmentTransition.NONE,false,null);
+                    break;
 
-            case 2:
-                break;
+                case 3:
 
-            case 3:
-                break;
+                    break;
+            }
         }
-
-
     }
-
 
     @Override
     public void onBackPressed()
@@ -132,4 +123,9 @@ public class MainActivity extends ActionBarActivity
     }
 
 
+    @Override
+    public void onTabSelected(int pos, int container)
+    {
+        super.FragmentTransaction(R.id.tab_layout_fragment_container, SampleTabLayout.testFragment.newInstance(String.valueOf(pos)), BaseActivity.FragmentTransition.NONE,false,null);
+    }
 }

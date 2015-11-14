@@ -32,7 +32,6 @@ public class Tags
         MAP_FRAGMENT("MapFragment"),
         HOME_FRAGMENT("HomeFragment"),
         NEWS_FRAGMENT("NewsFragment"),
-
         MAP_ACTIVITY("MapActivity");
         private String TAG;
 

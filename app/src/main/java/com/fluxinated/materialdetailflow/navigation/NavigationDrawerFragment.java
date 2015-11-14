@@ -66,7 +66,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     private RecyclerView mDrawerList;
     private View mFragmentContainerView;
 
-    private int mCurrentSelectedPosition = 0;
+    private int mCurrentSelectedPosition = -1;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
 
@@ -96,7 +96,15 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
                              Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
-        mDrawerList = (RecyclerView) view.findViewById(R.id.drawerList);
+
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
+        mDrawerList = (RecyclerView) getView().findViewById(R.id.drawerList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDrawerList.setLayoutManager(layoutManager);
@@ -106,8 +114,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         NavigationDrawerAdapter adapter = new NavigationDrawerAdapter(navigationItems);
         adapter.setNavigationDrawerCallbacks(this);
         mDrawerList.setAdapter(adapter);
-        selectItem(mCurrentSelectedPosition);
-        return view;
+        selectItem(0);
     }
 
     public boolean isDrawerOpen()
@@ -207,7 +214,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
 
     private void selectItem(int position)
     {
-        mCurrentSelectedPosition = position;
+        //mCurrentSelectedPosition = position;
         if (mDrawerLayout != null)
         {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
@@ -216,7 +223,13 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         {
             mCallbacks.onNavigationDrawerItemSelected(position);
         }
+        mCurrentSelectedPosition = position;
         ((NavigationDrawerAdapter) mDrawerList.getAdapter()).selectPosition(position);
+    }
+
+    public int getCurrentSelectedPosition()
+    {
+        return mCurrentSelectedPosition;
     }
 
     public void openDrawer()

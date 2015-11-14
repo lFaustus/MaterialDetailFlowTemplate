@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.fluxinated.materialdetailflow"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -26,6 +26,9 @@ android {
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
+        //maven {  url "https://jitpack.io"  }
+        maven {  url "http://dl.bintray.com/jjhesk/maven"  }
     }
 
     dependencies {
@@ -47,4 +50,7 @@ dependencies {
     compile files('libs/google-http-client-1.20.0.jar')
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.squareup.okhttp:okhttp:2.5.0'
+    compile 'com.github.markushi:android-ui:1.2'
+    compile 'com.hkm:advancedmaterialtabs:1.0.0@aar'
+    compile 'com.android.support:design:23.1.0'
 }

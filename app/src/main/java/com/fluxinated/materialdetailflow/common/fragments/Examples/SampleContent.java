@@ -1,4 +1,4 @@
-package com.fluxinated.materialdetailflow.common.fragments;
+package com.fluxinated.materialdetailflow.common.fragments.Examples;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,11 +8,27 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.fluxinated.materialdetailflow.R;
+import com.fluxinated.materialdetailflow.common.fragments.BaseFragment;
 
 /**
  * Created by taurus on 11/12/15.
  */
-public class SampleContent extends BaseFragment {
+public class SampleContent extends BaseFragment
+{
+
+
+    public static SampleContent newInstance(@Nullable String params)
+    {
+
+        Bundle args = new Bundle();
+        SampleContent fragment = new SampleContent();
+        String s = null;
+        if(params != null)
+            s = params;
+        args.putString(FRAGMENT_KEY,fragment.getClass().getName() + s);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Nullable
     @Override

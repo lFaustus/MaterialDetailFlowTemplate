@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="CircleImageView">
-        <attr name="border_width" format="dimension" />
-        <attr name="border_color" format="color" />
-        <attr name="border_overlay" format="boolean" />
+        <attr name="border_width" format="dimension"/>
+        <attr name="border_color" format="color"/>
+        <attr name="border_overlay" format="boolean"/>
     </declare-styleable>
+
+    <!-- Material TabHost -->
+    <declare-styleable name="MaterialTabHost">
+        <!-- Custom attributes -->
+        <attr name="advtabs_hasIcons" format="boolean"/>
+        <attr name="advtabs_materialTabsPrimaryColor" format="color"/>
+        <attr name="advtabs_accentColor" format="color"/>
+        <attr name="advtabs_iconColor" format="color"/>
+        <attr name="advtabs_textColor" format="color"/>
+        <attr name="advtabs_nonFixTabsCountStart" format="integer"/>
+        <attr name="advtabs_customTabLayout" format="reference"/>
+    </declare-styleable>
+
 </resources>
