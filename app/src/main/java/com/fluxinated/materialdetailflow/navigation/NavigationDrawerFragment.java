@@ -16,8 +16,10 @@ import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -29,6 +31,7 @@ import android.widget.TextView;
 
 import com.fluxinated.materialdetailflow.MainActivity;
 import com.fluxinated.materialdetailflow.R;
+import com.fluxinated.materialdetailflow.common.adapters.recyclerview.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,12 +112,20 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDrawerList.setLayoutManager(layoutManager);
         mDrawerList.setHasFixedSize(true);
+        mDrawerList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
+        mDrawerList.setItemAnimator(new DefaultItemAnimator());
 
         final List<NavigationItem> navigationItems = getMenu();
         NavigationDrawerAdapter adapter = new NavigationDrawerAdapter(navigationItems);
         adapter.setNavigationDrawerCallbacks(this);
         mDrawerList.setAdapter(adapter);
-        selectItem(0);
+        try
+        {
+            selectItem(0, ((NavigationDrawerAdapter) mDrawerList.getAdapter()).getItem(0));
+        }catch(IndexOutOfBoundsException exp)
+        {
+            //TODO
+        }
     }
 
     public boolean isDrawerOpen()
@@ -133,9 +144,9 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     }
 
     @Override
-    public void onNavigationDrawerItemSelected(int position)
+    public void onNavigationDrawerItemSelected(int position,@Nullable Object obj)
     {
-        selectItem(position);
+        selectItem(position,obj);
     }
 
     public List<NavigationItem> getMenu()
@@ -212,7 +223,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         }
     }
 
-    private void selectItem(int position)
+    private void selectItem(int position,Object obj)
     {
         //mCurrentSelectedPosition = position;
         if (mDrawerLayout != null)
@@ -221,7 +232,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         }
         if (mCallbacks != null)
         {
-            mCallbacks.onNavigationDrawerItemSelected(position);
+            mCallbacks.onNavigationDrawerItemSelected(position,obj);
         }
         mCurrentSelectedPosition = position;
         ((NavigationDrawerAdapter) mDrawerList.getAdapter()).selectPosition(position);

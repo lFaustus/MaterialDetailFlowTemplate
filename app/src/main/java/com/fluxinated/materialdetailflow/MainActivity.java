@@ -2,6 +2,7 @@ package com.fluxinated.materialdetailflow;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -48,17 +49,23 @@ public class MainActivity extends BaseActivity
 
     }
 
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+    }
+
     public boolean isTwoPane()
     {
         return mTwoPane;
     }
 
     @Override
-    public void onNavigationDrawerItemSelected(int position)
+    public void onNavigationDrawerItemSelected(int position,@Nullable Object obj)
     {
         // update the main content by replacing fragments
-        if(mNavigationDrawerFragment !=null && mNavigationDrawerFragment.getCurrentSelectedPosition() != position  )
-        {
+        //if(mNavigationDrawerFragment !=null && mNavigationDrawerFragment.getCurrentSelectedPosition() != position  )
+        //{
             Toast.makeText(this, "Menu item selected -> " + position, Toast.LENGTH_SHORT).show();
             switch (position)
             {
@@ -77,7 +84,7 @@ public class MainActivity extends BaseActivity
 
                     break;
             }
-        }
+        //}
     }
 
     @Override

@@ -2,12 +2,12 @@ package com.fluxinated.materialdetailflow.common.fragments.Examples;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.fluxinated.materialdetailflow.R;
 import com.fluxinated.materialdetailflow.common.fragments.BaseFragment;
 
 /**
@@ -22,10 +22,7 @@ public class SampleContent extends BaseFragment
 
         Bundle args = new Bundle();
         SampleContent fragment = new SampleContent();
-        String s = null;
-        if(params != null)
-            s = params;
-        args.putString(FRAGMENT_KEY,fragment.getClass().getName() + s);
+        args.putString(FRAGMENT_KEY,fragment.getClass().getSimpleName());
         fragment.setArguments(args);
         return fragment;
     }
@@ -33,9 +30,10 @@ public class SampleContent extends BaseFragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_content,container,false);
-        ((TextView)v.findViewById(R.id.fragment_sample_content)).setText(TAG);
-        return v;
+        TextView mTextView = new TextView(getActivity());
+        mTextView.setText(getArguments().getString(FRAGMENT_KEY));
+        mTextView.setGravity(Gravity.CENTER);
+        return mTextView;
     }
 
     @Override

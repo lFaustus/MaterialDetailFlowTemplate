@@ -39,4 +39,9 @@ public abstract class BaseFragment extends Fragment
                 .addToBackStack(null)
                 .commit();
     }
+
+    public interface FragmentChangeCallbacks
+    {
+        void OnFragmentChange(int containerId,Enum fragmentTag,Object... extra);
+    }
 }

@@ -46,7 +46,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
                                                        v.setSelected(true);
                                                        mSelectedView = v;
                                                        if (mNavigationDrawerCallbacks != null)
-                                                           mNavigationDrawerCallbacks.onNavigationDrawerItemSelected(viewHolder.getAdapterPosition());
+                                                           mNavigationDrawerCallbacks.onNavigationDrawerItemSelected(viewHolder.getAdapterPosition(),mData.get(mSelectedPosition));
                                                    }
                                                }
         );
@@ -77,6 +77,11 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
     @Override
     public int getItemCount() {
         return mData != null ? mData.size() : 0;
+    }
+
+    public NavigationItem getItem(int position)
+    {
+        return mData.get(position);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

@@ -10,6 +10,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -53,4 +54,6 @@ dependencies {
     compile 'com.github.markushi:android-ui:1.2'
     compile 'com.hkm:advancedmaterialtabs:1.0.0@aar'
     compile 'com.android.support:design:23.1.0'
+    compile 'org.apache.commons:commons-lang3:3.0'
+    compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
 }

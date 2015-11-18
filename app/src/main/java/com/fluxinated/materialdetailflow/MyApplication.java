@@ -3,6 +3,7 @@ package com.fluxinated.materialdetailflow;
 import android.app.Application;
 import android.content.Context;
 
+import com.fluxinated.materialdetailflow.common.utils.ScreenProperties;
 import com.fluxinated.materialdetailflow.common.utils.networkutils.VolleyConnection;
 
 
@@ -13,12 +14,14 @@ public class MyApplication extends Application {
 
     private static MyApplication mInstance;
     private static VolleyConnection mVolley;
+    private static ScreenProperties mProperties;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance = this;
         mVolley = mVolley.getInstance();
+        mProperties = new ScreenProperties(this);
     }
 
     public static MyApplication getInstance()
@@ -34,5 +37,10 @@ public class MyApplication extends Application {
     public static VolleyConnection Volley()
     {
         return mVolley;
+    }
+
+    public static ScreenProperties ScreenProperties()
+    {
+        return mProperties;
     }
 }

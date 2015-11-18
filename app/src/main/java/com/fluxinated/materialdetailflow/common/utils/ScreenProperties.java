@@ -1,6 +1,6 @@
 package com.fluxinated.materialdetailflow.common.utils;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.util.DisplayMetrics;
 
@@ -12,11 +12,11 @@ import java.lang.ref.WeakReference;
 public class ScreenProperties
 {
     static DisplayMetrics metrics;
-    static WeakReference<Activity> activity;
+    static WeakReference<Context> activity;
 
-    public ScreenProperties(Activity activity)
+    public ScreenProperties(Context context)
     {
-        this.activity = new WeakReference<Activity>(activity);
+        this.activity = new WeakReference<Context>(context);
         metrics = this.activity.get().getResources().getDisplayMetrics();
     }
 
@@ -99,7 +99,23 @@ public class ScreenProperties
 
     public enum DensityType
     {
-        LOW,MEDIUM,HIGH,XHIGH,XXHIGH,XXXHIGH;
+        LOW(DisplayMetrics.DENSITY_LOW),
+        MEDIUM(DisplayMetrics.DENSITY_MEDIUM),
+        HIGH(DisplayMetrics.DENSITY_HIGH),
+        XHIGH(DisplayMetrics.DENSITY_XHIGH),
+        XXHIGH(DisplayMetrics.DENSITY_XXHIGH),
+        XXXHIGH(DisplayMetrics.DENSITY_XXXHIGH);
+        private int density;
+
+        DensityType(int density_)
+        {
+            density = density_;
+        }
+
+        public int getDensity()
+        {
+            return this.density;
+        }
     }
 
     public enum ScreenOrientation
